@@ -7,6 +7,7 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
     title = 'markdown-app';
+    markup = '**Angular** is a //Typescript// See here for more details [[https://accubits.com | Learn more]]';
 
     onChange(event) {
         console.log(event);

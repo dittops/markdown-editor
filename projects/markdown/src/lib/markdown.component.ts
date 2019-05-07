@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import {MarkdownService} from './markdown.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {MarkdownService} from './markdown.service';
     templateUrl: './markdown.component.html',
     styleUrls: ['./markdown.component.css']
 })
-export class MarkdownComponent implements OnInit {
+export class MarkdownComponent implements OnInit, OnChanges {
 
     @Input() value: string;
 
@@ -20,6 +20,20 @@ export class MarkdownComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+
+    ngOnChanges(changes: SimpleChanges) {
+        const valueChange: SimpleChange = changes.value;
+
+        if (valueChange) {
+            if (typeof valueChange.currentValue !== 'undefined' && valueChange.currentValue !== valueChange.previousValue) {
+                if (valueChange.currentValue !== '') {
+                    this.value = valueChange.currentValue;
+                    this.onChange();
+                }
+            }
+        }
     }
 
     onChange() {
